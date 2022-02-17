@@ -2,7 +2,7 @@
   <Layout>
 
     <!-- Page Header -->
-    <header class="masthead" :style="`background-image: url('${process.env.GRIDSOME_API_URL}${$page.general.cover.url}')`">
+    <header class="masthead" :style="`background-image: url('${baseUrl}${$page.general.cover.url}')`">
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
@@ -94,12 +94,15 @@ query ($page: Int) {
 
 <script>
 import {Pager} from 'gridsome';
+import {baseUrl} from '../common/constants';
 
 export default {
     name: 'Index',
     components: {Pager},
-    mounted() {
-        console.log(this.$page)
+    data() {
+      return {
+        baseUrl
+      }
     }
 };
 </script>
