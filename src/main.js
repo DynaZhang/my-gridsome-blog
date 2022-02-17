@@ -1,5 +1,7 @@
 // This is the main.js file. Import global CSS and scripts here.
 // The Client API can be used here. Learn more: gridsome.org/docs/client-api
+import dayjs from 'dayjs';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './assets/css/index.css';
@@ -7,6 +9,9 @@ import './assets/css/index.css';
 import DefaultLayout from '~/layouts/Default.vue';
 
 export default function (Vue, { router, head, isClient }) {
-  // Set default layout as a global component
-  Vue.component('Layout', DefaultLayout);
+    // Set default layout as a global component
+    Vue.component('Layout', DefaultLayout);
+
+    // Filters
+    Vue.filter('formatDate', value => dayjs(value).format('MMM DD, YYYY'));
 }

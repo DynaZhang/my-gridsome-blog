@@ -18,10 +18,25 @@ module.exports = {
         {
             use: '@gridsome/source-strapi',
             options: {
-                apiURL: 'http://localhost:1337',
+                apiURL: process.env.GRIDSOME_API_URL,
                 queryLimit: 30000, // Defaults to 100
-                contentTypes: ['posts', 'tags']
+                contentTypes: ['posts', 'tags'],
+                singleTypes: ['general']
             }
         }
-    ]
+    ],
+    templates: {
+        StrapiPosts: [
+            {
+                path: '/post/:id',
+                component: './src/templates/Post.vue'
+            }
+        ],
+        StrapiTags: [
+            {
+                path: '/tag/:id',
+                component: './src/templates/Tag.vue'
+            }
+        ]
+    }
 };

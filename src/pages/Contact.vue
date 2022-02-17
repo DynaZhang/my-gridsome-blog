@@ -27,34 +27,34 @@
                         <div class="control-group">
                             <div class="form-group floating-label-form-group controls">
                                 <label>Name</label>
-                                <input type="text" class="form-control" placeholder="Name" id="name" required data-validation-required-message="Please enter your name.">
+                                <input type="text" v-model="formMessage.name" class="form-control" placeholder="Name" required data-validation-required-message="Please enter your name.">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="control-group">
                             <div class="form-group floating-label-form-group controls">
                                 <label>Email Address</label>
-                                <input type="email" class="form-control" placeholder="Email Address" id="email" required data-validation-required-message="Please enter your email address.">
+                                <input type="email" v-model="formMessage.email_address" class="form-control" placeholder="Email Address" required data-validation-required-message="Please enter your email address.">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label>Phone Number</label>
-                                <input type="tel" class="form-control" placeholder="Phone Number" id="phone" required data-validation-required-message="Please enter your phone number.">
+                                <input type="tel" v-model="formMessage.phone_number" class="form-control" placeholder="Phone Number" required data-validation-required-message="Please enter your phone number.">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="control-group">
                             <div class="form-group floating-label-form-group controls">
                                 <label>Message</label>
-                                <textarea rows="5" class="form-control" placeholder="Message" id="message" required data-validation-required-message="Please enter a message."></textarea>
+                                <textarea rows="5" v-model="formMessage.message" class="form-control" placeholder="Message" required data-validation-required-message="Please enter a message."></textarea>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <br>
                         <div id="success"></div>
-                        <button type="submit" class="btn btn-primary" id="sendMessageButton">Send</button>
+                        <button type="button" class="btn btn-primary" @click="handleSend">Send</button>
                     </form>
                 </div>
             </div>
@@ -63,8 +63,30 @@
 </template>
 
 <script>
+import {addContact} from '../apis/contact';
 export default {
-    
+    name: 'Contact',
+    data() {
+        return {
+            formMessage: {
+                name: '',
+                email_address: '',
+                phone_number: '',
+                message: ''
+            }
+        };
+    },
+    methods: {
+        async handleSend() {
+            try {
+                const params = Object.assign({}, this.formMessage);
+                await addContact(params);
+                alert('发送成功');
+            } catch (e) {
+                alert('发送失败');
+            }
+        }
+    }
 }
 </script>
 
